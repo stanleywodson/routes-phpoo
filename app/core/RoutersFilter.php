@@ -18,28 +18,41 @@ class RoutersFilter
 		$this->method = RequestType::get();
 		$this->routerRegistered = Routes::get();
 	}
-	private function simpleRouter(): string
+	private function simpleRouter()
 	{
 		if(array_key_exists($this->uri, $this->routerRegistered[$this->method])){
 			return $this->routerRegistered[$this->method][$this->uri];
 		}
 
-		return 'NotFoundController@index';
+		return null;
 	}
 
-	public function dynamicRouter($url)
+	public function dynamicRouter()
 	{
-		$url = explode('/', $url);
-		$controller = $url[0];
-		$action = $url[1];
-		$params = $url[2];
-		$controller = 'App\controllers\\' . $controller . 'Controller';
-		$controller = new $controller;
-		$controller->$action($params);
+		foreach($this->routerRegistered[$this->method] as $index => $route){
+			$regex = str_replace('/', '\/', ltrim($index, '/'));
+			if ($index !== '/' && preg_match("/^$regex$/", trim($this->uri, '/'))) {
+				$routerRegisteredFound = $route;
+				break;
+			} else {
+				$routerRegisteredFound = null;
+			}
+		}
+		return $routerRegisteredFound;
 	}
 
 	public function get()
 	{
-		return $this->simpleRouter();
+		$router = $this->simpleRouter();
+		if($router){
+			return $router;
+		}
+
+		$router = $this->dynamicRouter();
+		if($router){
+			return $router;
+		}
+
+		return 'NotFoundController@index';
 	}
 }
