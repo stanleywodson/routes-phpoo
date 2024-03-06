@@ -1,3 +1,8 @@
 <?php
 
-echo 'stanley wodson';
+use App\core\Router;
+
+require '../vendor/autoload.php';
+session_start();
+
+Router::run();
