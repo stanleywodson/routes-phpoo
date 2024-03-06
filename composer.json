@@ -15,5 +15,8 @@
             "email": "stanleypt@outlook.com"
         }
     ],
-    "require": {}
+    "require": {
+        "league/plates": "^3.5",
+        "symfony/var-dumper": "^6.4"
+    }
 }
