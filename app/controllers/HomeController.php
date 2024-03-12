@@ -2,10 +2,13 @@
 
 namespace App\controllers;
 
-class HomeController
+class HomeController extends Controller
 {
 	public function index()
 	{
-		echo "Hello World";
+		$this->view('home', [
+			'name' => 'Página Home',
+			'title' => 'pag. home'
+		]);
 	}
 }

@@ -2,15 +2,16 @@
 
 namespace App\controllers;
 
-class UserController
+
+class UserController extends Controller
 {
 	public function index()
 	{
 		echo 'UserController';
 	}
 
-	public function show($params)
+	public function show($params = "")
 	{
-		echo 'UserController - show';
+		$this->view('user', ['name' => 'Wodson Stanley']);	
 	}
 }
