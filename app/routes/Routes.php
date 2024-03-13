@@ -8,10 +8,16 @@ class Routes
 	{
 		return [
 			'get' => [
+				//Home
 				'/' => 'HomeController@index',
+
+				//User
 				'/user/[0-9]+' => 'UserController@show',
+				'/user/edit/[0-9]+' => 'UserController@edit',
 			],
-			'post' => [],
+			'post' => [
+				'/user/update/[0-9]+' => 'UserController@update',
+			],
 		];
 	}
 }
