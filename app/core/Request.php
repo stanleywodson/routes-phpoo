@@ -65,7 +65,7 @@ class Request
     {
         json_decode($data);
 
-        if (isJson()) {
+        if (isJson($data)) {
             return json_decode($data);
         }
     }
